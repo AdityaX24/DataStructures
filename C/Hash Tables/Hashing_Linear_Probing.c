@@ -21,8 +21,39 @@ void init_hash_table(NODE *ht,int *n,int size)      //to initialize (or reinitia
     }
 }
 
+int search_implicit(NODE *ht,int data,int *n,int size)      //function to search for data in hash table implicitly. Helper function to the insert function
+{
+    if((*n)==0)                                     //if there is no data in the hash table
+    {    
+        return 0;  
+    }                                   
+    int index=data%size;                            //finds the index position using hashing(hash value)
+    int i=0;
+    while(ht[index].data!=data && i!=(*n))          //iterate over the table untill data is found or we search n available items
+    {
+        index=(index+1)%size;                       //collision resolved using linear probing
+        if(ht[index].used==1)                       //to reduce search time, increment counter everytime a legitimate data is encountered. Only search untill number of elements present. Also used as exit condition for the loop
+        {
+            i++;
+        }
+    }
+    if(ht[index].data==data && ht[index].used==1)       //if the data is found and its legitimate(i.e used flag is 1)
+    {    
+        return 1;
+    }
+    else                                                //if data is not found    
+    {    
+        return 0;   
+    }
+}
+
 void insert(NODE *ht,int data,int *n,int size)      //function to insert data to hash table
 {
+    if(search_implicit(ht,data,n,size)==1)          //to avoid inserting similar values in the hash table
+    {
+        printf("\n Data already present in the hash table!.. \n");
+        return;
+    }
     if(*n==size)                                    //if the hash table is already full
     {
         printf("\n Table full!.. \n");              //print hash table is full and come out of the fuction
@@ -67,7 +98,7 @@ void search(NODE *ht,int data,int *n,int size)      //function to search for dat
     while(ht[index].data!=data && i!=(*n))          //iterate over the table untill data is found or we search n available items
     {
         index=(index+1)%size;                       //collision resolved using linear probing
-        if(ht[index].used==1)                       //to reduce search time, increment counter everytime a legitimate data is encountered. Only search untill number of elements present 
+        if(ht[index].used==1)                       //to reduce search time, increment counter everytime a legitimate data is encountered. Only search untill number of elements present. Also used as exit condition for the loop
         {
             i++;
         }
@@ -78,7 +109,7 @@ void search(NODE *ht,int data,int *n,int size)      //function to search for dat
     }
     else                                                //if data is not found
     {
-        printf("\n Data not found!.. \n");                      //prints the data not found message           
+        printf("\n Data not found!.. \n");                      //prints the data not found message        
     }
 }
 
@@ -94,7 +125,7 @@ void delete(NODE *ht,int data,int *n,int size)          //to delete data from th
     while(ht[index].data!=data && i!=(*n))              //iterate over the table untill data is found or we search n available items
     {
         index=(index+1)%size;                           //collision resolved using linear probing
-        if(ht[index].used==1)                           //to reduce search time, increment counter everytime a legitimate data is encountered. Only search untill number of elements present 
+        if(ht[index].used==1)                           //to reduce search time, increment counter everytime a legitimate data is encountered. Only search untill number of elements present. Also used as exit condition for the loop
         {   
             i++;
         }
