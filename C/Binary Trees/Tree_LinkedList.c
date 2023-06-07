@@ -1,3 +1,7 @@
+//Code by Aditya Poddar
+//SRN PES2UG21CS036
+//for any help, contact: poddar.aditya2014@gmail.com
+
 #include<stdio.h>
 #include<stdlib.h>
 struct node     //a single node of a tree containing a left and a right pointer
