@@ -1,3 +1,7 @@
+//Code by Aditya Poddar
+//SRN PES2UG21CS036
+//for any help, contact: poddar.aditya2014@gmail.com
+
 #include<stdio.h>
 #include<stdlib.h>
 #define MAX 100     //can be changed according to user needs
